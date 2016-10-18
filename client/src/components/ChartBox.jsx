@@ -1,48 +1,46 @@
 var React = require('react');
-var CountrySelector = require('./CountrySelector');
-var CountryDetail = require('./CountryDetail');
+var HitList = require('./HitList.jsx');
+var GenreSelector = require('./GenreSelector.jsx');
 
-var CountryBox = React.createClass({
-  getInitialState:function(){
-     return { countries: [], focusCountry: null }
-   },
+var SongBox = React.createClass({
+  getInitialState: function(){
+    return {songs: [], genres:[]}
+  },
+  componentDidMount: function(){
+    var url = 'https://itunes.apple.com/gb/rss/topsongs/limit=20/json'
+    var request  = new XMLHttpRequest();
+    request.open('GET', url);
+    request.onload = function(){
+      if(request.status === 200){
+        var data = JSON.parse(request.responseText);
+        this.setState({songs: data.feed.entry});
+      }
+    }.bind(this)
+    request.send();
 
+    var urlGenre = 'https://itunes.apple.com/WebObjects/MZStoreServices.woa/ws/genres?id=34'
+    var request  = new XMLHttpRequest();
+    request.open('GET', urlGenre);
+    request.onload = function(){
+      if(request.status === 200){
+        var data = JSON.parse(request.responseText);
+        // console.log('genreData', data[34].subgenres);
+        this.setState({genres: data[34].subgenres});
+      }
+    }.bind(this)
+    request.send();
+  },
 
-   componentDidMount:function(){
-           var url = "https://itunes.apple.com/gb/rss/topsongs/limit=20/json";
-           var request = new XMLHttpRequest();
-           request.open("GET", url);
-           request.onload = function(){
-             if(request.status === 200){
-               var data = JSON.parse(request.responseText);
-               this.setState({countries: data, focusCountry:data[0]});//added line
-             }
-           }.bind(this)
-           request.send(null);
-         },
-
-
-setFocusCountry: function(index){
-  var newCountry= this.state.countries[index];
-  this.setState({focusCountry: newCountry});
-  console.log(newCountry);
-},
-
-
-
-  render:function(){
-    return(
+  render: function(){
+    return (
       <div>
-        <h2>Country Box</h2>
-        <CountrySelector countries={this.state.countries}
-selectCountry={this.setFocusCountry}
-        ></CountrySelector>
-
-        <CountryDetail country = {this.state.focusCountry}>country={this.state.CountryDetail}</CountryDetail>
+      console.log("in chartbox render")
+        <h2>iTunes Top 20 Songs</h2>
+        <GenreSelector genres={this.state.genres}/>
+        <HitList songs={this.state.songs}/>
       </div>
-    )
+      )
   }
-})
-
+});
 
 module.exports = ChartBox;

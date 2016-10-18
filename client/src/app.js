@@ -1,11 +1,14 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
 
-var CountryBox = require('./components/CountryBox.jsx')
+var React = require('react');
+var ReactDom = require('react-dom');
+var ItunesBox = require('./components/ChartBox');
 
 window.onload = function(){
-  ReactDOM.render(
-    <CountryBox></CountryBox>,
+  ReactDom.render(
+    <div>
+    <h1>iTunes Top 20 tracks</h1>
+    <ItunesBox /> 
+    </div>, 
     document.getElementById('app')
   );
 }

@@ -1,27 +1,23 @@
 var React = require('react');
 
-var CountrySelector = React.createClass({
 
-  handleChange: function(event){
-    var newIndex = event.target.value;
-    console.log(newIndex);
-    this.props.selectCountry(newIndex);
-  },
+var GenreSelection = React.createClass({
+  // getInitialState: function(){
 
+  // },
+  // handleChange:function(){
 
-
-  render: function(){
-    var options = this.props.countries.map(function (country, index) {
-            return <option value={index} key={index}>{country.name}</option>;
-
-     });
-
+  // },
+  render:function(){
     return(
-      <select id="countries" onChange={this.handleChange}>
-       {options}
-      </select>
+      <h1>hello</h1>
     )
+    // var options = this.props.genres.map(function(genre, index){
+    //   console.log('options', options)
+    //   // return <option value={index}>{genre}</option>
+    // });
+    // console.log(options);
   }
-})
+});
 
-module.exports = CountrySelector;
+module.exports = GenreSelection;
