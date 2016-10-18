@@ -1,7 +1,6 @@
-
 var React = require('react');
 var ReactDom = require('react-dom');
-var ItunesBox = require('./components/ChartBox');
+var ItunesBox = require('./components/ItunesBox');
 
 window.onload = function(){
   ReactDom.render(

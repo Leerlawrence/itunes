@@ -1,7 +1,7 @@
 module.exports = config;
 
 config = {
-  entry: "./src/app.js",
+  entry: "./src/app.jsx",
   output: {
     filename: "bundle.js",
     path: "./build"
@@ -20,7 +20,8 @@ config = {
         }
       }
     ]
-  }
+  },
+  devtool: 'source-map'
 }
 
 module.exports = config;
